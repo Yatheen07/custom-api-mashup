@@ -9,7 +9,7 @@ import cv2
 from PIL import Image
 from statistics import median,mean
 
-videoPath = r'D:\\Pictures\\videos\\video558464737.mp4'
+videoPath = r'D:\\Pictures\\videos\\video1509089841.mp4'
 
 def getMedianValue(image):
     return median(image.histogram())
@@ -33,11 +33,16 @@ def handleVideo(path,frame_index):
     
     video.release()
     cv2.destroyAllWindows()
+    print("The number of frames in the video is : "+ str(counter))
     return False,pixel_values 
 
 
 
 status,pixel_values = handleVideo(videoPath,-1)
+
+if(len(pixel_values) % 2 == 0 ):
+    pixel_values.pop()
+
 frame_index = pixel_values.index(median(pixel_values))
 
 status,junk = handleVideo(videoPath,frame_index)
